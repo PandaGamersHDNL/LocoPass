@@ -1,0 +1,20 @@
+{
+    "entries": [{
+        "name": "example",
+        "username": "user",
+        "email": "example@example.com",
+        "password": "beepboop",
+        "url": "example.com",
+        "description": "this is an example entry"
+    },
+    {
+        "name": "example2",
+        "username": "user2",
+        "email": "example@example.com",
+        "password": "beepboop",
+        "url": "example.com",
+        "description": "this is an example entry"
+    }
+
+    ]
+}
