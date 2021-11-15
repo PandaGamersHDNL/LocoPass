@@ -2,6 +2,7 @@ from UI.build.tablewidget import Ui_MainWindow
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem
 import json
+from editMenuCustom import editMenu
 
 print("beep")
 
@@ -11,14 +12,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
-        self.load()
-        #self.testButton.clicked.connect()
-        
-    def load(self):
+
         file = open("./LocoPass/data.json", "r")
-        data = json.load(file)
-        self.tableWidget.setRowCount(len(data["entries"]))
-        for indexEntry, i in enumerate(data["entries"]):
+        self.data = json.load(file)
+        self.testButton.clicked.connect(self.addData)
+        self.actionadd.triggered.connect(self.openEdit)
+        self.loadData()
+        
+    #load data to table TODO en/decrypt data
+    def loadData(self):
+        self.tableWidget.setRowCount(len(self.data["entries"]))
+        for indexEntry, i in enumerate(self.data["entries"]):
             for indexItem,j in enumerate(i):
                 item = QTableWidgetItem()
                 item.setText(i[j])
@@ -29,7 +33,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print(self.tableWidget.currentItem().text())
         #print(self.tableWidget.rowCount())
        # 
+    def addData(self):
+        self.data["entries"].append({"name": "example", "username": "user", "email": "example@example.com", "password": "beepboop", "url": "example.com", "description": 'this is an example entry'})
+        self.loadData() #TODO change so we don't loop over all the data?
 
+    def openEdit(self):
+        self.edit = editMenu()
+        self.edit.show()
+        temp = self.edit.getData()
+        print(temp)
+        
+        
+#get selected items
+#for item in self.tableWidget.selectedItems():
+#            print(f"selectedItems {item.text()}")
+        
 #https://youtu.be/XXPNpdaK9WA
 
 

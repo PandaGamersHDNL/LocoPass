@@ -30,7 +30,14 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="0" column="0">
+    <item row="1" column="0">
+     <widget class="QPushButton" name="testButton">
+      <property name="text">
+       <string>test</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
      <widget class="QTableWidget" name="tableWidget">
       <property name="contextMenuPolicy">
        <enum>Qt::CustomContextMenu</enum>
@@ -111,13 +118,6 @@
       </item>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="testButton">
-      <property name="text">
-       <string>test</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -146,6 +146,11 @@
    <addaction name="menuedit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionsafe">
+   <property name="text">
+    <string>save</string>
+   </property>
+  </action>
   <action name="actionadd">
    <property name="checkable">
     <bool>false</bool>
@@ -157,20 +162,7 @@
     <string>add</string>
    </property>
   </action>
-  <action name="actionsafe">
-   <property name="text">
-    <string>save</string>
-   </property>
-  </action>
-  <action name="actionRightClickMenu">
-   <property name="text">
-    <string>rightClickMenu</string>
-   </property>
-  </action>
  </widget>
- <tabstops>
-  <tabstop>tableWidget</tabstop>
- </tabstops>
  <resources/>
  <connections/>
  <slots>
