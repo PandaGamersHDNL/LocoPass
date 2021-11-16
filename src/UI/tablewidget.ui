@@ -141,6 +141,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionadd"/>
+    <addaction name="actionedit"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menuedit"/>
@@ -160,6 +161,11 @@
    </property>
    <property name="text">
     <string>add</string>
+   </property>
+  </action>
+  <action name="actionedit">
+   <property name="text">
+    <string>edit</string>
    </property>
   </action>
  </widget>

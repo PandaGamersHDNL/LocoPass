@@ -1,6 +1,6 @@
 from UI.build.tablewidget import Ui_MainWindow
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem, QMessageBox
 import json
 from editMenuCustom import editMenu
 
@@ -16,7 +16,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         file = open("./LocoPass/data.json", "r")
         self.data = json.load(file)
         self.testButton.clicked.connect(self.addData)
-        self.actionadd.triggered.connect(self.openEdit)
+        self.actionadd.triggered.connect(self.openAdd)
+        self.actionedit.triggered.connect(self.openEdit)
         self.loadData()
         
     #load data to table TODO en/decrypt data
@@ -33,15 +34,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print(self.tableWidget.currentItem().text())
         #print(self.tableWidget.rowCount())
        # 
-    def addData(self):
-        self.data["entries"].append({"name": "example", "username": "user", "email": "example@example.com", "password": "beepboop", "url": "example.com", "description": 'this is an example entry'})
+    def addData(self, data):
+        self.data["entries"].append(data)
         self.loadData() #TODO change so we don't loop over all the data?
 
+    def openAdd(self):
+        self.add = editMenu(self)
+        self.add.show()
+    
     def openEdit(self):
-        self.edit = editMenu()
-        self.edit.show()
-        temp = self.edit.getData()
-        print(temp)
+        selected = self.tableWidget.currentRow()
+        if(selected == -1):
+            alert = QMessageBox()
+            alert.setText("please select a row to edit")
+            alert.setWindowTitle("Error")
+            alert.exec()
+        else:
+            self.edit = editMenu(self, selected)
+            self.edit.show()
+
+        print(f"openEdit {selected}")
+
         
         
 #get selected items
