@@ -50,10 +50,15 @@ class editMenu(QWidget, EditMenu):
 
     def confirm(self):
         if self.edit>-1:
-            print("edit")
+            self.editEntry()
         else:
             self.mainMenu.addData(self.getData())
+        self.close()
     
+    def editEntry(self):
+        self.mainMenu.changeData(index = self.edit, data = self.getData())
+        self.close()
+
     def cancel(self):
         self.close()
 #add data to main menu data or file

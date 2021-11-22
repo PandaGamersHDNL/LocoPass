@@ -1,10 +1,14 @@
+from crypto import crypto
 from UI.build.tablewidget import Ui_MainWindow
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem, QMessageBox
 import json
 from editMenuCustom import editMenu
 
+
 print("beep")
+#TODO rename safe to save
+#TODO login system
 
 #main window (table)
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -12,15 +16,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
-
-        file = open("./LocoPass/data.json", "r")
-        self.data = json.load(file)
-        self.testButton.clicked.connect(self.addData)
+        self.path = "./LocoPass/data.json"
+        file = open(self.path, "r")
+        
+        self.crypto = crypto()
+        self.data = self.crypto.decryptData()
+        self.testButton.clicked.connect(self.crypto.decryptData)
         self.actionadd.triggered.connect(self.openAdd)
         self.actionedit.triggered.connect(self.openEdit)
+        self.actionsafe.triggered.connect(self.saveData)
         self.loadData()
         
-    #load data to table TODO en/decrypt data
     def loadData(self):
         self.tableWidget.setRowCount(len(self.data["entries"]))
         for indexEntry, i in enumerate(self.data["entries"]):
@@ -30,13 +36,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if(j == "password"):
                     item.setText("********")
                 self.tableWidget.setItem(indexEntry, indexItem, item)
-                #print(i[j])
-        #print(self.tableWidget.currentItem().text())
-        #print(self.tableWidget.rowCount())
-       # 
+    
+    def saveData(self):
+        self.crypto.encryptData(self.data)
+
     def addData(self, data):
         self.data["entries"].append(data)
         self.loadData() #TODO change so we don't loop over all the data?
+
+    def changeData(self, index, data):
+        self.data["entries"][index] = data
+        self.loadData()
 
     def openAdd(self):
         self.add = editMenu(self)

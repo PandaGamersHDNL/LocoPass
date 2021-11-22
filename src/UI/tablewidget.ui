@@ -51,6 +51,9 @@
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
+      <property name="textElideMode">
+       <enum>Qt::ElideLeft</enum>
+      </property>
       <row>
        <property name="text">
         <string>1</string>
@@ -134,6 +137,7 @@
      <string>file</string>
     </property>
     <addaction name="actionsafe"/>
+    <addaction name="actionnew"/>
    </widget>
    <widget class="QMenu" name="menuedit">
     <property name="title">
@@ -142,6 +146,7 @@
     <addaction name="separator"/>
     <addaction name="actionadd"/>
     <addaction name="actionedit"/>
+    <addaction name="actiondelete"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menuedit"/>
@@ -166,6 +171,16 @@
   <action name="actionedit">
    <property name="text">
     <string>edit</string>
+   </property>
+  </action>
+  <action name="actionnew">
+   <property name="text">
+    <string>new</string>
+   </property>
+  </action>
+  <action name="actiondelete">
+   <property name="text">
+    <string>delete</string>
    </property>
   </action>
  </widget>

@@ -5,6 +5,7 @@ local password manager
 - python
 - pyuic5
 - PyQT5
+- cryptography
 
 ## convert.sh
 use git bash to run
