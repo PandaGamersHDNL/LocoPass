@@ -11,3 +11,8 @@ class dataHandling:
             "url": url,
             "description": desciption
         }
+    
+    def createEmpty():
+        return {
+            "entries": []
+        }
