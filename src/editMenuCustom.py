@@ -1,5 +1,6 @@
 from UI.build.editMenu import Ui_editMenu as EditMenu
 from PyQt5.QtWidgets import QWidget, QLineEdit
+from dataStruct import dataHandling
 
 class editMenu(QWidget, EditMenu):
 

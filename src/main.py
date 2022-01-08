@@ -1,3 +1,4 @@
+from error import error
 from auth import AuthMenu
 #from crypto import Crypto
 from UI.build.tablewidget import Ui_MainWindow
@@ -5,6 +6,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem, QMessageBox
 import json
 from editMenuCustom import editMenu
+from dataStruct import dataHandling
+from newFileCustom import NewFile
 
 
 
@@ -19,16 +22,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         #TODO create option to pick which file (in auth?)
-        self.path = ".\LocoPass\data.bin"
-        
-        #self.data = self.crypto.decryptData()
-       
-        
         self.actionadd.triggered.connect(self.openAdd)
         self.actionedit.triggered.connect(self.openEdit)
         self.actionsafe.triggered.connect(self.saveData)
         self.actiondelete.triggered.connect(self.deleteSelected)
-        
+        self.actionnew.triggered.connect(self.newFile)
+        #TODO remove example in UI file
+        self.show()    
         
     def loadData(self):
         self.tableWidget.setRowCount(len(self.data["entries"]))
@@ -41,7 +41,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.tableWidget.setItem(indexEntry, indexItem, item)
     
     def saveData(self):
-        self.crypto.encryptData(self.data)
+        try:
+            if(self.crypto.encryptData(self.data) == True):
+                self.crypto.path = ""
+                print(self.crypto.path)
+                self.data = dataHandling.createEmpty()
+                self.loadData()
+        except:
+            error("save error, opening new file")
+            #TODO bring up the new file menu
+            return False
 
     def addData(self, data):
         self.data["entries"].append(data)
@@ -58,10 +67,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def openEdit(self):
         selected = self.tableWidget.currentRow()
         if(selected == -1):
-            alert = QMessageBox()
-            alert.setText("please select a row to edit")
-            alert.setWindowTitle("Error")
-            alert.exec()
+            error("please select a row to edit")
         else:
             self.edit = editMenu(self, selected)
             self.edit.show()
@@ -85,8 +91,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.loadData()
         self.show()
         return True
-
-        
+    
+    def newFile(self):
+        self = NewFile()
         
 #get selected items
 #for item in self.tableWidget.selectedItems():
@@ -96,7 +103,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
     # create a main window
     main = MainWindow()

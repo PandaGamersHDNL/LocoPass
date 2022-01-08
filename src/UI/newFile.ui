@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Authentication</class>
- <widget class="QWidget" name="Authentication">
+ <class>NewFile</class>
+ <widget class="QWidget" name="NewFile">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
-    <height>365</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Authenticate</string>
+   <string>New file</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="pathLabel">
        <property name="minimumSize">
@@ -24,8 +24,14 @@
          <height>0</height>
         </size>
        </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
-        <string>path</string>
+        <string>Path</string>
        </property>
        <property name="margin">
         <number>5</number>
@@ -33,61 +39,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="pathInput">
-       <property name="text">
-        <string>./LocoPass/data.bin</string>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="pathInput"/>
      </item>
      <item>
       <widget class="QPushButton" name="browseBtn">
        <property name="text">
-        <string>browse</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
-     <item>
-      <widget class="QLabel" name="usernameLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>UserName / Email</string>
-       </property>
-       <property name="margin">
-        <number>5</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="usernameInput">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
+        <string>Browse</string>
        </property>
       </widget>
      </item>
@@ -96,7 +53,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="passwordLabel">
+      <widget class="QLabel" name="filenameLabel">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -105,12 +62,12 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
-         <height>28</height>
+         <width>100</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
-        <string>Password</string>
+        <string>file name</string>
        </property>
        <property name="margin">
         <number>5</number>
@@ -118,12 +75,70 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="passwordInput">
+      <widget class="QLineEdit" name="filenameInput"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="usernameLabel">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
-         <height>20</height>
+         <width>100</width>
+         <height>16777215</height>
         </size>
+       </property>
+       <property name="text">
+        <string>username/email</string>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="usernameInput"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="passLabel">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>password</string>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="passInput"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="showBtn">
+       <property name="text">
+        <string>show</string>
        </property>
       </widget>
      </item>
@@ -133,9 +148,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QPushButton" name="confirmBtn">
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
        <property name="text">
         <string>confirm</string>
        </property>
@@ -154,9 +166,6 @@
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

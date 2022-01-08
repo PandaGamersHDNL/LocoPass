@@ -1,8 +1,10 @@
 from genericpath import isfile
 from Cryptodome.Cipher import AES
+from error import error
 from dataStruct import dataHandling
 import hashlib
 import json
+import re
 import os
 #https://devrescue.com/simple-python-aes-encryption-example/
 
@@ -10,7 +12,6 @@ class Crypto:
     def __init__(self, path, key):
         self.path = path
         hash = hashlib.sha256(key.encode())
-        print(hash.hexdigest())
         self.key = hash.digest()
 
     def encryptData(self, data):
@@ -23,18 +24,18 @@ class Crypto:
             outfile = open(self.path, "wb+")
             [outfile.write(x) for x in (cipher.nonce, tag, encrypted)]
             outfile.close()
+            return True
         except:
-            print("encrypt error")
+            error("encrypt error")
             return False
 
     
     def decryptData(self):
         try:
-            print(os.getcwd())
             #TODO if file doesn't exist ask user to make new file
             if(not os.path.isfile(self.path)):
                 print("not a valid path")
-                exit()
+                return False
             file = open(self.path, "rb")
             path = "./temp.json"
             nonce, tag, encrypted = [ file.read(x) for x in (16, 16, -1) ]
@@ -48,7 +49,7 @@ class Crypto:
             os.remove(path)
             return data
         except:
-            print("decrypt error")
+            error("decrypt error")
             return False
         
 
