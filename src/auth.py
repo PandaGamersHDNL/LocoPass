@@ -21,8 +21,10 @@ class AuthMenu(QWidget, authUI):
             self.close()
 
     def cancel(self):
+        self.main.data = dataHandling.createEmpty()
+        self.main.loadData()
         self.close()
-        sys.exit()
+        #sys.exit()
 
     def browse(self):
         filePath = QFileDialog.getOpenFileName(self, "Pick your .bin file", os.getcwd(), 'binairy files (*.bin)')

@@ -42,14 +42,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def saveData(self):
         try:
-            if(self.crypto.encryptData(self.data) == True):
-                self.crypto.path = ""
-                print(self.crypto.path)
-                self.data = dataHandling.createEmpty()
-                self.loadData()
+            self.crypto.encryptData(self.data)
         except:
             error("save error, opening new file")
-            #TODO bring up the new file menu
+            self.new = NewFile()
             return False
 
     def addData(self, data):
@@ -86,14 +82,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.testButton.clicked.connect(self.crypto.decryptData)
         self.data = self.crypto.decryptData()
         if(self.data == False):
-            #change so we can make a new one if we can't log in
+            #TODO change so we can make a new one if we can't log in?
             return False
         self.loadData()
         self.show()
         return True
     
     def newFile(self):
-        self = NewFile()
+        self.new = NewFile()
         
 #get selected items
 #for item in self.tableWidget.selectedItems():

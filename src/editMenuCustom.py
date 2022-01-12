@@ -1,6 +1,7 @@
 from UI.build.editMenu import Ui_editMenu as EditMenu
 from PyQt5.QtWidgets import QWidget, QLineEdit
 from dataStruct import dataHandling
+import random
 
 class editMenu(QWidget, EditMenu):
 
@@ -17,6 +18,7 @@ class editMenu(QWidget, EditMenu):
         self.confirmBtn.clicked.connect(self.confirm)
         self.generatePassBtn.clicked.connect(self.generatePass)
         self.cancelBtn.clicked.connect(self.cancel)
+        self.generatePassBtn.clicked.connect(self.generatePass)
 
     def hideShowPass(self):
         if self.showPass:
@@ -30,6 +32,13 @@ class editMenu(QWidget, EditMenu):
     #https://medium.com/analytics-vidhya/create-a-random-password-generator-using-python-2fea485e9da9
     def generatePass(self):
         print("generatePass")
+        random_string = ''
+        
+        for _ in range(10):
+            random_integer = random.randint(32, 126)
+            # Keep appending random characters using chr(x)
+            random_string += (chr(random_integer))
+        self.passwordInput.setText(random_string)
 
     def setData(self):
         print("setdata")

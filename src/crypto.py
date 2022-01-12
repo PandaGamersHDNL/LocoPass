@@ -34,7 +34,7 @@ class Crypto:
         try:
             #TODO if file doesn't exist ask user to make new file
             if(not os.path.isfile(self.path)):
-                print("not a valid path")
+                error("not a valid path")
                 return False
             file = open(self.path, "rb")
             path = "./temp.json"

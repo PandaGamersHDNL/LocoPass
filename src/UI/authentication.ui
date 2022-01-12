@@ -35,7 +35,7 @@
      <item>
       <widget class="QLineEdit" name="pathInput">
        <property name="text">
-        <string>./LocoPass/data.bin</string>
+        <string>./LocoPass/data/data.bin</string>
        </property>
       </widget>
      </item>
