@@ -133,7 +133,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="passInput"/>
+      <widget class="QLineEdit" name="passInput">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="showBtn">

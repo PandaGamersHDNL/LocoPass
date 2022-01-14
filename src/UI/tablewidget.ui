@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>LocoPass</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -136,8 +136,11 @@
     <property name="title">
      <string>file</string>
     </property>
-    <addaction name="actionsafe"/>
     <addaction name="actionnew"/>
+    <addaction name="actionsave"/>
+    <addaction name="actionsaveAs"/>
+    <addaction name="actionopen"/>
+    <addaction name="actionexit"/>
    </widget>
    <widget class="QMenu" name="menuedit">
     <property name="title">
@@ -152,7 +155,7 @@
    <addaction name="menuedit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionsafe">
+  <action name="actionsave">
    <property name="text">
     <string>save</string>
    </property>
@@ -181,6 +184,21 @@
   <action name="actiondelete">
    <property name="text">
     <string>delete</string>
+   </property>
+  </action>
+  <action name="actionsaveAs">
+   <property name="text">
+    <string>save as</string>
+   </property>
+  </action>
+  <action name="actionexit">
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </action>
+  <action name="actionopen">
+   <property name="text">
+    <string>open</string>
    </property>
   </action>
  </widget>

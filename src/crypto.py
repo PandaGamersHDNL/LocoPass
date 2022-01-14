@@ -1,6 +1,6 @@
 from genericpath import isfile
 from Cryptodome.Cipher import AES
-from error import error
+from error import Error
 from dataStruct import dataHandling
 import hashlib
 import json
@@ -26,7 +26,7 @@ class Crypto:
             outfile.close()
             return True
         except:
-            error("encrypt error")
+            Error("encrypt error")
             return False
 
     
@@ -34,7 +34,7 @@ class Crypto:
         try:
             #TODO if file doesn't exist ask user to make new file
             if(not os.path.isfile(self.path)):
-                error("not a valid path")
+                Error("not a valid path")
                 return False
             file = open(self.path, "rb")
             path = "./temp.json"
@@ -49,7 +49,7 @@ class Crypto:
             os.remove(path)
             return data
         except:
-            error("decrypt error")
+            Error("decrypt error")
             return False
         
 

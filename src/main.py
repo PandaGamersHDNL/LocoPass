@@ -1,4 +1,4 @@
-from error import error
+from error import Error
 from auth import AuthMenu
 #from crypto import Crypto
 from UI.build.tablewidget import Ui_MainWindow
@@ -24,9 +24,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #TODO create option to pick which file (in auth?)
         self.actionadd.triggered.connect(self.openAdd)
         self.actionedit.triggered.connect(self.openEdit)
-        self.actionsafe.triggered.connect(self.saveData)
+        self.actionsave.triggered.connect(self.saveData)
+        self.actionsaveAs.triggered.connect(self.saveAs)
+        self.actionopen.triggered.connect(self.open)
         self.actiondelete.triggered.connect(self.deleteSelected)
         self.actionnew.triggered.connect(self.newFile)
+        self.actionexit.triggered.connect(self.exit)
         #TODO remove example in UI file
         self.show()    
         
@@ -43,9 +46,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def saveData(self):
         try:
             self.crypto.encryptData(self.data)
+            return True
         except:
-            error("save error, opening new file")
-            self.new = NewFile()
+            Error("save error, opening new file")
+            self.new = NewFile(self)
             return False
 
     def addData(self, data):
@@ -63,7 +67,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def openEdit(self):
         selected = self.tableWidget.currentRow()
         if(selected == -1):
-            error("please select a row to edit")
+            Error("please select a row to edit")
         else:
             self.edit = editMenu(self, selected)
             self.edit.show()
@@ -82,14 +86,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.testButton.clicked.connect(self.crypto.decryptData)
         self.data = self.crypto.decryptData()
         if(self.data == False):
-            #TODO change so we can make a new one if we can't log in?
-            return False
+            self.data = dataHandling.createEmpty()
         self.loadData()
         self.show()
         return True
     
     def newFile(self):
-        self.new = NewFile()
+        self.new = NewFile(self)
+        # TODO wait for new file confirm
+        self.data = dataHandling.createEmpty()
+        self.loadData()
+
+    def saveAs(self):
+        self.new = NewFile(self)
+        # TODO wait for new file confirm
+        self.saveData()
+        print("save as")
+
+    def open(self):
+        self.auth = AuthMenu(main)
+        
+    def exit(self):
+        reply = QMessageBox().question(self,  "exit", f'save before exiting?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if(reply == QMessageBox.Yes):
+            if(self.saveData() == True):
+                sys.exit()
+        else:
+            sys.exit()
         
 #get selected items
 #for item in self.tableWidget.selectedItems():
@@ -102,7 +125,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     # create a main window
     main = MainWindow()
-    auth = AuthMenu(main)
+    main.auth = AuthMenu(main)
     
     #main.save()
     #main_win.customContextMenuRequested.connect(right_menu)

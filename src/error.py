@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMessageBox
 
-class error(QMessageBox):
+class Error(QMessageBox):
 
     def __init__(self, error, *args, **kwargs):
         super().__init__(*args, **kwargs)
