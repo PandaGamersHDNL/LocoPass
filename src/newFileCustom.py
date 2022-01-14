@@ -1,7 +1,7 @@
 from logging import exception
 from dataStruct import dataHandling
 from crypto import Crypto
-from PyQt5.QtWidgets import QWidget, QFileDialog, QDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QDialog, QLineEdit
 from UI.build.newFile import Ui_NewFile as NewFileUI
 from error import Error
 
@@ -13,6 +13,8 @@ class NewFile(QWidget, NewFileUI):
         self.browseBtn.clicked.connect(self.browseFolder)
         self.cancelBtn.clicked.connect(self.cancel)
         self.confirmBtn.clicked.connect(self.confirm)
+        self.showPassBtn.clicked.connect(self.hideShowPass)
+        self.showPass = True
         self.show()
         self.main = main
 
@@ -38,3 +40,12 @@ class NewFile(QWidget, NewFileUI):
 
     def cancel(self):
         print("cancel")
+
+    def hideShowPass(self):
+        if self.showPass:
+            self.passInput.setEchoMode(QLineEdit.Normal)
+            self.showPassBtn.setText("Hide")
+        else:
+            self.passInput.setEchoMode(QLineEdit.Password)
+            self.showPassBtn.setText("Show")
+        self.showPass = not self.showPass

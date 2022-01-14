@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QLineEdit
 from UI.build.authentication import Ui_Authentication as authUI
 import sys
 from crypto import Crypto
@@ -12,7 +12,9 @@ class AuthMenu(QWidget, authUI):
         self.confirmBtn.clicked.connect(self.confirm)
         self.cancelBtn.clicked.connect(self.cancel)
         self.browseBtn.clicked.connect(self.browse)
+        self.showPassBtn.clicked.connect(self.hideShowPass)
         self.show()
+        self.showPass = True
         self.main = main
 
     def confirm(self):
@@ -29,3 +31,12 @@ class AuthMenu(QWidget, authUI):
     def browse(self):
         filePath = QFileDialog.getOpenFileName(self, "Pick your .bin file", os.getcwd(), 'binairy files (*.bin)')
         self.pathInput.setText(filePath[0])
+
+    def hideShowPass(self):
+        if self.showPass:
+            self.passwordInput.setEchoMode(QLineEdit.Normal)
+            self.showPassBtn.setText("Hide")
+        else:
+            self.passwordInput.setEchoMode(QLineEdit.Password)
+            self.showPassBtn.setText("Show")
+        self.showPass = not self.showPass

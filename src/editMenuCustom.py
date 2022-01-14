@@ -29,7 +29,6 @@ class editMenu(QWidget, EditMenu):
             self.showPassBtn.setText("Show")
         self.showPass = not self.showPass
     
-    #https://medium.com/analytics-vidhya/create-a-random-password-generator-using-python-2fea485e9da9
     def generatePass(self):
         print("generatePass")
         random_string = ''
