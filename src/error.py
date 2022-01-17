@@ -7,4 +7,4 @@ class Error(QMessageBox):
         self.setText(error)
         self.setWindowTitle("Error")
         self.exec()
-        self.show()
+        #self.show()

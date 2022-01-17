@@ -3,17 +3,11 @@ from auth import AuthMenu
 #from crypto import Crypto
 from UI.build.tablewidget import Ui_MainWindow
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu,QTableWidgetItem, QMessageBox, QDialogButtonBox
 import json
 from editMenuCustom import editMenu
 from dataStruct import dataHandling
 from newFileCustom import NewFile
-
-
-
-print("beep")
-#TODO rename safe to save
-#TODO login system
 
 #main window (table)
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -21,7 +15,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
-        #TODO create option to pick which file (in auth?)
         self.actionadd.triggered.connect(self.openAdd)
         self.actionedit.triggered.connect(self.openEdit)
         self.actionsave.triggered.connect(self.saveData)
@@ -46,10 +39,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def saveData(self):
         try:
             self.crypto.encryptData(self.data)
+            QMessageBox.information(self, "success", "saved successfully")
             return True
         except:
             Error("save error, opening new file")
-            self.new = NewFile(self)
+            self.saveAs()
             return False
 
     def addData(self, data):
@@ -83,25 +77,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def defCrypto(self, crypto):
         self.crypto = crypto
-        #self.testButton.clicked.connect(self.crypto.decryptData)
         self.data = self.crypto.decryptData()
         if(self.data == False):
-            self.data = dataHandling.createEmpty()
+            self.crypto = False
+            return False
         self.loadData()
         self.show()
         return True
     
     def newFile(self):
         self.new = NewFile(self)
-        # TODO wait for new file confirm
-        self.data = dataHandling.createEmpty()
-        self.loadData()
+        if (self.new.exec_() == QDialogButtonBox.Ok):
+            self.data = dataHandling.createEmpty()
+            self.loadData()
+            if(self.saveData() == True):
+                QMessageBox.information(self, "success!", "new file successfully created")
 
     def saveAs(self):
         self.new = NewFile(self)
-        # TODO wait for new file confirm
-        self.saveData()
-        print("save as")
+        if (self.new.exec_() == QDialogButtonBox.Ok):
+            self.saveData()
 
     def open(self):
         self.auth = AuthMenu(main)

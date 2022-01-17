@@ -132,3 +132,6 @@ dmypy.json
 
 # encrypted data files
 .bin
+
+# code runner temp code file
+tempCodeRunnerFile.py

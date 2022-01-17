@@ -24,6 +24,7 @@ class AuthMenu(QWidget, authUI):
 
     def cancel(self):
         self.main.data = dataHandling.createEmpty()
+        self.main.crypto = False
         self.main.loadData()
         self.close()
         #sys.exit()

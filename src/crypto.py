@@ -4,7 +4,6 @@ from error import Error
 from dataStruct import dataHandling
 import hashlib
 import json
-import re
 import os
 #https://devrescue.com/simple-python-aes-encryption-example/
 
@@ -32,7 +31,6 @@ class Crypto:
     
     def decryptData(self):
         try:
-            #TODO if file doesn't exist ask user to make new file
             if(not os.path.isfile(self.path)):
                 Error("not a valid path")
                 return False
