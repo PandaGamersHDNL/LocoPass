@@ -48,7 +48,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def addData(self, data):
         self.data["entries"].append(data)
-        self.loadData() #TODO change so we don't loop over all the data?
+        self.loadData()
 
     def changeData(self, index, data):
         self.data["entries"][index] = data
@@ -89,6 +89,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.new = NewFile(self)
         if (self.new.exec_() == QDialogButtonBox.Ok):
             self.data = dataHandling.createEmpty()
+            self.saveData()
             self.loadData()
             if(self.saveData() == True):
                 QMessageBox.information(self, "success!", "new file successfully created")
@@ -108,13 +109,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 sys.exit()
         else:
             sys.exit()
-        
-#get selected items
-#for item in self.tableWidget.selectedItems():
-#            print(f"selectedItems {item.text()}")
-        
-#https://youtu.be/XXPNpdaK9WA
 
+
+#https://youtu.be/XXPNpdaK9WA
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -122,8 +119,4 @@ if __name__ == "__main__":
     main = MainWindow()
     main.auth = AuthMenu(main)
     
-    #main.save()
-    #main_win.customContextMenuRequested.connect(right_menu)
-    #main_win.show(main)
-    #main.show()
     sys.exit(app.exec_())

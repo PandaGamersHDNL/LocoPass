@@ -18,7 +18,6 @@ class editMenu(QWidget, EditMenu):
         self.confirmBtn.clicked.connect(self.confirm)
         self.generatePassBtn.clicked.connect(self.generatePass)
         self.cancelBtn.clicked.connect(self.cancel)
-        self.generatePassBtn.clicked.connect(self.generatePass)
 
     def hideShowPass(self):
         if self.showPass:
@@ -33,7 +32,7 @@ class editMenu(QWidget, EditMenu):
         print("generatePass")
         random_string = ''
         
-        for _ in range(10):
+        for _ in range(15):
             random_integer = random.randint(32, 126)
             # Keep appending random characters using chr(x)
             random_string += (chr(random_integer))

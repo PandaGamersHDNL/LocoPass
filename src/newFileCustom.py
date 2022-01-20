@@ -1,18 +1,18 @@
 from logging import exception
 from dataStruct import dataHandling
 from crypto import Crypto
-from PyQt5.QtWidgets import QWidget, QFileDialog, QDialog, QLineEdit
-from UI.build.newFile import Ui_NewFile as NewFileUI
+from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QDialog, QLineEdit, QMessageBox
+from UI.build.newFile import Ui_newFile as NewFileUI
 from error import Error
 
-class NewFile(QWidget, NewFileUI):
+class NewFile(QDialog, NewFileUI):
 
     def __init__(self, main, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
+        #self.buttonBox.rejected.connect(self.reject)
+        #self.buttonBox.accepted.connect(self.accept)
         self.browseBtn.clicked.connect(self.browseFolder)
-        self.cancelBtn.clicked.connect(self.cancel)
-        self.confirmBtn.clicked.connect(self.confirm)
         self.showPassBtn.clicked.connect(self.hideShowPass)
         self.showPass = True
         self.show()
@@ -27,19 +27,24 @@ class NewFile(QWidget, NewFileUI):
             #self._audio_file = dialog.selectedFiles()[0]
         #bring open folder explorerer
 
-    def confirm(self):
+    def accept(self):
         try:
-            crypto = Crypto(self.pathInput.text() + "/" + self.filenameInput.text() + ".bin", f"{self.usernameInput.text() + self.passInput.text()}")
-            temp = open(crypto.path, "x")
-            temp.close()
-            self.main.crypto = crypto
-            print("confirm")
-            self.close()
+            if(self.passInput.text() != ''):
+                crypto = Crypto(self.pathInput.text() + "/" + self.filenameInput.text() + ".bin", f"{self.usernameInput.text() + self.passInput.text()}")
+                temp = open(crypto.path, "x")
+                temp.close()
+                self.main.crypto = crypto
+                print("confirm")
+                self.close()
+            else:
+                QMessageBox.critical(self, "Error!", "Please enter a password.")
         except:
-            Error("new file failed")
+            QMessageBox.critical(self, "Error!", "Path already exists or isn\'t valid")
 
-    def cancel(self):
+
+    def reject(self):
         print("cancel")
+        self.done(QDialogButtonBox.Cancel)
 
     def hideShowPass(self):
         if self.showPass:
