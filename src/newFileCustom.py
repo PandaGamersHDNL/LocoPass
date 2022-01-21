@@ -33,7 +33,7 @@ class NewFile(QDialog, NewFileUI):
                 temp.close()
                 self.main.crypto = crypto
                 print("confirm")
-                self.close()
+                self.done(QDialogButtonBox.Ok)
             else:
                 QMessageBox.critical(self, "Error!", "Please enter a password.")
         except:

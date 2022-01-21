@@ -38,7 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def saveData(self):
         try:
             self.crypto.encryptData(self.data)
-            QMessageBox.information(self, "success", "saved successfully")
+            #QMessageBox.information(self, "success", "saved successfully")
             return True
         except:
             Error("save error, opening new file")
@@ -85,13 +85,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return True
     
     def newFile(self):
-        self.new = NewFile(self)
-        if (self.new.exec_() == QDialogButtonBox.Ok):
-            self.data = dataHandling.createEmpty()
-            self.saveData()
-            self.loadData()
-            if(self.saveData() == True):
-                QMessageBox.information(self, "success!", "new file successfully created")
+        try:
+            self.new = NewFile(self)
+            if (self.new.exec_() == QDialogButtonBox.Ok):
+                self.data = dataHandling.createEmpty()
+                self.saveData()
+                self.loadData()
+                if(self.saveData() == True):
+                    QMessageBox.information(self, "success!", "new file successfully created")
+        except:
+            QMessageBox.critical(self, "Error!", "Something went wrong when creating the file")
+
 
     def saveAs(self):
         self.new = NewFile(self)
