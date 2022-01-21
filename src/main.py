@@ -23,7 +23,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actiondelete.triggered.connect(self.deleteSelected)
         self.actionnew.triggered.connect(self.newFile)
         self.actionexit.triggered.connect(self.exit)
-        #TODO remove example in UI file
         self.show()    
         
     def loadData(self):

@@ -24,8 +24,6 @@ class NewFile(QDialog, NewFileUI):
         dialog.setFileMode(QFileDialog.DirectoryOnly)
         if dialog.exec_() == QDialog.Accepted:
             self.pathInput.setText(dialog.selectedFiles()[0])
-            #self._audio_file = dialog.selectedFiles()[0]
-        #bring open folder explorerer
 
     def accept(self):
         try:
